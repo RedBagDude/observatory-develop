@@ -1,0 +1,118 @@
+// Prisma Schema — OCEM (Prisma v5)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         String   @default("USER")
+  avatar       String?
+  status       String   @default("active")
+  lastActive   DateTime @default(now()) @map("last_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  auditLogs    AuditLog[]
+  contactMsgs  ContactMessage[]
+  @@map("users")
+}
+
+model Alert {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  severity    String   @default("INFO")
+  active      Boolean  @default(true)
+  source      String   @default("SEN")
+  timestamp   DateTime @default(now())
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  @@map("alerts")
+}
+
+model GeoResource {
+  id         String   @id @default(uuid())
+  name       String
+  type       String
+  latitude   Float
+  longitude  Float
+  properties String   @default("{}")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  @@map("geo_resources")
+}
+
+model Document {
+  id        String   @id @default(uuid())
+  title     String
+  filePath  String   @map("file_path")
+  category  String
+  metadata  String   @default("{}")
+  content   String   @default("")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  @@map("documents")
+}
+
+model DataSource {
+  id         String   @id @default(uuid())
+  sourceName String   @map("source_name")
+  system     String
+  status     String   @default("ONLINE")
+  lastSync   DateTime @default(now()) @map("last_sync")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  @@map("data_sources")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?  @map("user_id")
+  action    String
+  endpoint  String
+  ipAddress String   @default("") @map("ip_address")
+  details   String   @default("{}")
+  timestamp DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  @@map("audit_logs")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+  userId    String?  @map("user_id")
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  @@map("contact_messages")
+}
+
+model Bulletin {
+  id          String   @id @default(uuid())
+  title       String
+  summary     String
+  content     String   @default("")
+  category    String   @default("GENERAL")
+  publishedAt DateTime @default(now()) @map("published_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  @@map("bulletins")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String   @map("user_id")
+  refreshToken String   @map("refresh_token")
+  expiresAt    DateTime @map("expires_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  @@map("sessions")
+}
