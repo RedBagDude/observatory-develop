@@ -16,6 +16,7 @@ export function MetricsTicker() {
   const { theme, toggle } = useTheme();
 
   useEffect(() => {
+    // Load stats from the API once on mount; fall back to a simulated generation figure.
     fetch("/api/v1/stats")
       .then((r) => r.json())
       .then((data) => {

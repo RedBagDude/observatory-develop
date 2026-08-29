@@ -14,6 +14,7 @@ const quickTags = [
 export const Hero = () => {
   const [query, setQuery] = useState("");
 
+  // Redirect to the smart search module with the query URL-encoded.
   const handleSearch = (searchQuery: string) => {
     if (!searchQuery.trim()) return;
     window.location.href = `/modules/smart_search?q=${encodeURIComponent(searchQuery)}`;

@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 /**
  * Combines class names using clsx and tailwind-merge.
  * Ensures Tailwind classes are properly merged without conflicts.
+ * Later classes win on conflict, so callers can override defaults safely.
  */
 export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
