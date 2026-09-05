@@ -1,5 +1,6 @@
 import React from "react";
 
+// Sección de misión y visión de la página "Acerca de".
 export default function MissionVision() {
 	return (
 		<section className="relative">

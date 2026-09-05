@@ -27,6 +27,7 @@ This project includes a comprehensive design system built with:
 - ✅ **Component Variants** - Type-safe variants using CVA
 - ✅ **Accessibility First** - WCAG 2.1 AA compliant
 - ✅ **Type-Safe** - Full TypeScript support
+- ✅ **Dark Mode** - Automatic theme switching via semantic tokens
 
 ### Using Components
 
