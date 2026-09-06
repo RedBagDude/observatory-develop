@@ -12,3 +12,5 @@ export default function Logo({ width = 40, height = 40 }: { width?: number; heig
 		</Link>
 	);
 }
+
+// maintainer: minor documentation refresh (2026-09-06)
