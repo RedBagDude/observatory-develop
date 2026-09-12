@@ -52,4 +52,4 @@ export default function MissionVision() {
 	);
 }
 
-// maintainer: minor documentation refresh (2026-09-07)
+// maintainer: minor documentation refresh (2026-09-12)
