@@ -13,4 +13,4 @@ export default function Logo({ width = 40, height = 40 }: { width?: number; heig
 	);
 }
 
-// maintainer: routine maintenance pass (2026-09-17)
+// maintainer: minor documentation refresh (2026-09-19)
